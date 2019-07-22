@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title></title>
+  <meta charset=utf-8>
+  <script src="Lib/vue-2.6.10.js"></script>
+  <link rel=stylesheet href="Lib/bootstrap.css">
+</head>
+<body>
+  <div id="demo" class="container">
+    <!-- 评论区 -->
+    <comment-box @show-comment-list="getCommentList"></comment-box>
+    <!-- 评论列表 -->
+    <section>
+      <ul v-for="comment in commentList" :key="comment.id" class="list-group">
+        <li class="list-group-item">
+          {{comment.content}}
+          <span class="badge">{{comment.commentator}}</span>
+        </li>
+      </ul>
+    </section>
+  </div>
+  <!-- 评论盒子 -->
+  <template id="commentBox">
+    <section style="margin-bottom: 40px">
+      <div class='form-group'>
+        <label>评论人:</label>
+        <input type="text" v-model="commentator" class="form-control" name="">
+      </div>
+      <div>
+        <label>评论内容:</label>
+        <textarea v-model='content' class="form-control" ></textarea>
+      </div>
+      <button @click="publish()" style="margin-top: 20px" class="btn btn-primary">发表</button>
+    </section>
+  </template>
+  <script>
+    var commentBox={
+      template:"#commentBox",
+      data(){
+        return{
+          'commentator':"",
+          'content':""
+        }
+      },
+      methods:{
+        publish(){
+          var comList=JSON.parse(localStorage.getItem("commentList") ||"[]");
+          comList.unshift({
+            'id':Date.now(),
+            'commentator':this.commentator,
+            'content':this.content,
+          });
+          localStorage.setItem("commentList", JSON.stringify(comList))
+          this.$emit('show-comment-list');
+        }
+      }
+    }
+    var vm = new Vue({
+      el: "#demo",
+      data:{
+        'msg':"HELLO WORLD",
+        'commentList':[
+        // {'id':1,'commentator':"张三疯",'content':"风吹草地见牛羊"},
+        // {'id':2,'commentator':"小白",'content':"赤橙红绿青蓝紫"},
+        // {'id':3,'commentator':"乔峰",'content':"拨云终见月"},
+        ]
+      },
+      components:{
+        'comment-box':commentBox,
+      },
+      methods:{
+        getCommentList(){
+          var comList=JSON.parse(localStorage.getItem("commentList"));
+            console.log(comList);
+            this.commentList =comList;
+          }
+        },
+        created(){
+          this.getCommentList();
+        }
+      })
+    </script>
+  </body>
+  </html>

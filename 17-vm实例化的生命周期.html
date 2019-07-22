@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title></title>
+    <meta charset=utf-8>
+    <script src="Lib/vue-2.6.10.js"></script>
+</head>
+<body>
+    <div id="demo">
+        <!-- vm实例的生命周期如下 -->
+        <button @click="msg='SAY GODLEBYE'">change</button>
+        <p id="info">{{msg}}</p>
+        <img src="./img/vue_liftecycle.png" alt="vue生命周期" 
+        width="400">
+    </div>
+    <script>
+        var vm = new Vue({
+            el: "#demo",
+            data:{
+                'msg':"HELLO WORLD"
+            },
+            /***
+                beforeCreate表示在data和methods创建之前,此时才刚初始化vm对象.
+                created:表示data和methods之间的数据以及加载完成,此时可以获取data和methods中定义的数据和方法。单元素里的内容还没有被渲染
+                beforMount:表示vm实例里的内容挂载到元素内容之前,此时不能获取标签中使用的vm中的数据。
+                Mount:表示vm实例中的数据已经挂载到标签中。
+                当完成mount方法后,表示整个vm实例已经初始化完毕。
+
+            **/
+            beforeCreate(){
+                console.log('data和methods方法创建之前调用.')
+                console.log("获取data的值"+this.msg);
+            },
+            created(){
+                console.log("data和methods方法完成后调用");
+                console.log("获取data的值"+this.msg);
+            },
+            beforeMount(){
+                var info=document.getElementById("info").innerHTML;
+                console.log("vm实例里的内容被挂载到元素之前时调用"+info);
+            },
+            mounted(){
+                var info=document.getElementById("info").innerHTML;
+                console.log("vm实例里的内容被挂载到元素之后时调用"+info);
+            },
+            beforeUpdate(){
+                /*beforeUpdate在数据更改后调用,但内容还没有渲染到标签上*/
+                var info=document.getElementById("info").innerHTML;
+                console.log("beforeUpdate"+info);
+            },
+            updated(){
+                /*updated在数据更改后调用,此时数据里的内容已经渲染到标签之上*/
+                var info=document.getElementById("info").innerHTML;
+                console.log("updated"+info);
+            },
+            beforeDestroy(){
+                /*表示vm实例已经进入了销毁阶段,但vm里的所有数据都还处于可用阶段*/
+            },
+            Destroyed(){
+                /*vm已经销毁完毕*/
+            }
+        })
+    </script>
+</body>
+</html>

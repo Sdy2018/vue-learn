@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title></title>
+  <meta charset=utf-8>
+  <script src="Lib/vue-2.6.10.js"></script>
+</head>
+<body>
+  <div id="demo">
+    <my-component></my-component>
+    <bye></bye>
+  </div>
+  <template id="myComponent">
+    <h1>HELLO WORLD</h1>
+  </template>
+  <template id="byebye">
+    <h1>byebye</h1>
+  </template>
+  <script>
+      //自定以component,在template中设置id
+      Vue.component("myComponent",{
+        template:"#myComponent"
+      })
+      var vm = new Vue({
+        el: "#demo",
+        data:{
+          'msg':"HELLO WORLD"
+        },
+        methods:{},
+        derectives:{},
+        filters:{},
+        /*定义局部组件*/
+        components:{
+          "bye":{
+            template:"#byebye"
+          }
+        },
+
+        beforCreate(){},
+        created(){},
+        beforeMount(){},
+        mount(){},
+        beforeUpdate(){},
+        updated(){},
+        beforeDestory(){},
+        destorted(){}
+      })
+    </script>
+  </body>
+  </html>

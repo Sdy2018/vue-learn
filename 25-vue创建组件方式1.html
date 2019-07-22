@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title></title>
+  <meta charset=utf-8>
+  <script src="Lib/vue-2.6.10.js"></script>
+  <style type="text/css">
+    h1{
+      color: red;
+    }
+  </style>
+</head>
+<body>
+  <div id="demo">
+    <!-- 第三步调用组件标签名为组件名 -->
+    <!-- 驼峰的要转变为- -->
+    <my-component></my-componet>
+      <hello></hello>
+    </div>
+    <script>
+      //使用组件分为三步
+      //第一步注册组件模板
+    //var myCom=Vue.extend({
+      //template:"<h1>HELLO WORLD</h1>"
+
+    //});
+      //第二步设置组件名
+      //Vue.component("myComponent",myCom);
+
+      /*写成以下方式*/
+      Vue.component("hello",Vue.extend({
+        template:"<h1>HELLO WORLD</h1>"
+      }))
+      var vm = new Vue({
+        el: "#demo",
+        data:{
+          'msg':"HELLO WORLD"
+        }
+      })
+    </script>
+</body>
+</html>

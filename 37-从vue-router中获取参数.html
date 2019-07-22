@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title></title>
+  <meta charset=utf-8>
+  <script src="Lib/vue-2.6.10.js"></script>
+  <script src="Lib/vue-router v3.0.7.js"></script>
+</head>
+<body>
+  <div id="demo">
+    <!-- 从router中获取数据 以get方式在url后面写参数
+          从Vue.$route.query中获取url上的数据
+
+          也可以使用restful风格
+          在url后面加: 语法为 XX/:demo
+          获取时使用 Vue.$route.params获取
+     -->
+    <router-link to="/login?id=1&name=adeng">login</router-link>
+    <router-link to="/register/sdy">register</router-link>
+    <router-view></router-view>
+  </div>
+  <script>
+    var loginComponent={
+      template:"<h1>login {{$route.query.name}}</h1>",
+      methods:{},
+      created(){
+        console.log(this.$route.query.id);
+      }
+    }
+    var registerComponent={
+      template:"<h1>register</h1>",
+      data(){
+        return{
+          msg:"hello word"
+        }
+      },
+      created(){
+        console.log(this.$route.params.id);
+      }
+    }
+
+    var router=new VueRouter({
+      routes:[
+      {path:"/",redirect:"/login"},
+      {path:"/login",component:loginComponent},
+      {path:"/register/:id",component:registerComponent},
+      ]
+    })
+    var vm = new Vue({
+      el: "#demo",
+      data:{
+        'msg':"HELLO WORLD"
+      },
+      router,
+    })
+  </script>
+</body>
+</html>

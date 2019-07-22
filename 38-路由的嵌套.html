@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title></title>
+  <meta charset=utf-8>
+  <script src="Lib/vue-2.6.10.js"></script>
+  <script src="Lib/vue-router v3.0.7.js"></script>
+</head>
+<body>
+  <div id="demo">
+    <router-link to="/account">account</router-link>
+    <router-view></router-view>
+  </div>
+  <template id="accountComponent">
+    <div>
+     <h1>Account</h1>
+     <router-link to="/login" >登录</router-link>
+     <router-link to="/register">注册</router-link>
+     <router-view></router-view>
+     <!-- 在需要嵌套子路由的模板中添加<router-view></router-view> -->
+   </div>
+ </template>
+ <template id="login">
+   <h1>login</h1>
+ </template>
+ <template id="register">
+   <h1>register</h1>
+ </template>
+ <script>
+  var accountComponent={
+    template:"#accountComponent"
+  }
+  var loginComponent={
+    template:"#login"
+  }
+  var registerComponent={
+    template:"#register"
+  }
+  var router=new VueRouter({
+    routes:[
+    {
+      /*路由的嵌套在路由映射对象下有children数组,在children数组中写子路由的映射,写法和在routes下根映射的写法一致*/
+      /*其中若地址没有加/地址表示为/account/login */
+      path:"/account",
+      component:accountComponent,
+      children:[
+          {path:"/login",component:loginComponent},
+          {path:"/register",component:registerComponent},
+      ]
+    }
+    ]
+  })
+  var vm = new Vue({
+    el: "#demo",
+    data:{
+      'msg':"HELLO WORLD"
+    },
+    router,
+  })
+</script>
+</body>
+</html>

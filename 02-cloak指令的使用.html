@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>02-cload指令的使用</title>
+    <script type="text/javascript" src="Lib/vue-2.6.10.js"></script>
+    <style type="text/css">
+    </style>
+</head>
+<body>
+    <div v-cloak id="box">
+        {{msg}}
+        <p>{{msg}}</p>
+        <h1 v-text="msg"></h1>
+        <h1 v-html='hello'></h1>
+    </div>
+    <script >
+        var vm = new Vue({
+
+            el: "#box",
+            data:{
+                msg:"hello world",
+                hello:"<h1>hello world</h1>"
+            }
+
+        })
+    </script>
+</body>
+</html>

@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset=utf-8>
+    <meta name=viewport content="width=device-width, initial-scale=1">
+    <title>v-bind</title>
+    <script type="text/javascript" src="Lib/vue-2.6.10.js"></script>
+</head>
+<body>
+    <div id="box">
+        <p>{{msg}}</p>
+        <!-- v-on:可以缩写为 @ -->
+        <button  v-on:click="visibility">button</button>
+    </div>
+    <script type="text/javascript">
+        var vm = new Vue({
+          el: "#box",
+          data:{
+            msg:"ssdsd"
+          },
+          methods:{
+            visibility:function(){
+                alert("hello world");
+            }
+          }
+        
+        })
+    </script>
+</body>
+</html>

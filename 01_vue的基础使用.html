@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>01-vue</title>
+    <script src="Lib/vue-2.6.10.js"></script>
+</head>
+<body>
+
+    <!-- 
+        mvvm理念
+        m表示modle表示页面上的数据
+        v表示view视图,表示页面。hmtl
+        vm表示视图和modle的调度者
+     -->
+
+    <div id="demo">
+        <p>{{msg}}</p>
+    </div>
+    <script>
+        var vm = new Vue({
+            /*注意modle的作用范围只是在选择的标签下*/
+            el: "#demo",
+            data:{
+                'msg':"HELLO WORLD"
+            }
+        })
+    </script>
+</body>
+</html>

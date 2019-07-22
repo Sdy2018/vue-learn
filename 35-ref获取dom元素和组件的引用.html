@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title></title>
+  <meta charset=utf-8>
+  <script src="Lib/vue-2.6.10.js"></script>
+</head>
+<body>
+  <div id="demo">
+    <button @click="getRef">getDom</button>
+    <p ref="myp">
+      hello world
+    </p>
+    <hello ref="myhello"></hello>
+  </div>
+  <template id="hello">
+    <div style="height: 200px;width: 200px;background-color: #f40"></div>
+  </template>
+  <script>
+    var hello={
+      template:"#hello",
+      data(){
+        return{
+          "msg":"hi",
+        }
+      },
+      methods:{
+        show(){
+          console.log("this is a component")
+        }
+      }
+    }
+    var vm = new Vue({
+      el: "#demo",
+      data:{
+        'msg':"HELLO WORLD"
+      },
+      methods:{
+        getRef(){
+          /*通过vue实例对象里的$refs对象可以获取dom元素和组件*/
+          /*在需要获取的元素或者组件上添加ref属性,语法为 ref="name"
+            获取组件的引用可以获取组件中的数据和方法.
+          */
+          console.log(this.$refs.myp);
+          console.log(this.$refs.myhello);
+          console.log(this.$refs.myhello.msg);
+          this.$refs.myhello.show();
+        },
+      },
+      components:{
+        hello,
+      }
+    })
+  </script>
+</body>
+</html>

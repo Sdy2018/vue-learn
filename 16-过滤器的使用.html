@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title></title>
+    <meta charset=utf-8>
+    <script src="Lib/vue-2.6.10.js"></script>
+</head>
+<body>
+    <div id="demo">
+        <p>{{msg2 | TEST("明明白白","朗朗乾坤") }}</p>
+    </div>
+    <script>
+        //管道符'|'只能用在mousetache和v-bind中。
+        //使用时为要过滤的信息 | 加上过滤器名字  msg | filterName
+        //filter 能在v:bing 和插值表达式中使用。
+        //filter方法中,第一个参数表示filter的名字
+        //filter中可以传多个参数,在filter的function中第一个参数表示过滤的信息,之后的参数表示实际调用填写的参数
+        //多个filter可以作用与多个信息上,触发顺序按照调用顺序进行。
+        //调用私有过滤器在vm实例的filters创建相应方法即可,在全局过滤器和局部过滤器名方法名相同时优先调用更具体过滤器(调用局部过滤器)
+        Vue.filter("TEST",function(msg,replcaeMsg,target) {
+            // return msg.replace("HELLO", "SAY BYE")
+            return msg.replace(replcaeMsg, target)
+        });
+        var vm = new Vue({
+            el: "#demo",
+            data:{
+                'msg':"HELLO WORLD",
+                'msg2':"简简单单,明明白白,清清楚楚"
+            }
+        })
+    </script>
+</body>
+</html>

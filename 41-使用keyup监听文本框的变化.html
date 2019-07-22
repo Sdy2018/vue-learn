@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title></title>
+  <meta charset=utf-8>
+  <script src="Lib/vue-2.6.10.js"></script>
+</head>
+<body>
+  <div id="demo">
+    <input type="text" @keyup="getFullName" v-model="firstName" name="">+
+    <input type="text" @keyup="getFullName" v-model="lastName" name="">=
+    <input type="text" v-model="fullName" name="">
+  </div>
+  <script>
+    /*使用keyup事件监听文本框的变化*/
+    var vm = new Vue({
+      el: "#demo",
+      data:{
+        'msg':"HELLO WORLD",
+        'fullName':"",
+        "firstName":"",
+        "lastName":"",
+      },
+      methods:{
+        getFullName(){
+          this.fullName=this.firstName+this.lastName;
+        }
+      }
+    })
+  </script>
+</body>
+</html>

@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title></title>
+    <link rel="stylesheet" type="text/css" href="../Lib/bootstrap.css">
+</head>
+<body>
+    <div class="panel panel-default">
+        <div class="panel-heading">Panel heading without title</div>
+        <div class="panel-body">
+            Panel content
+        </div>
+    </div>
+
+    <div class="panel panel-default  panel-primary">
+        <div class="panel-heading">
+            <h3 class="panel-title">标题</h3>
+        </div>
+        <div class="panel-body">
+            <form class="navbar-form navbar-left" role="search">
+                <div class="form-group">
+                    id:<input type="text" class="form-control" placeholder="id">
+                </div>
+                <div class="form-group">
+                    name:<input type="text" class="form-control" placeholder="name">
+                </div>
+                <button type="submit" class="btn btn-default">Submit</button>
+            </form>
+            <div class="panel panel-default">
+                <!-- Default panel contents -->
+                <table class="table">
+                    <tr>
+                        <th>id</th>
+                        <th>name</th>
+                        <th>createTime</th>
+                        <th>operation</th>
+                    </tr>
+                    <tr>
+                        <td>id</td>
+                        <td>name</td>
+                        <td>createTime</td>
+                        <td> 
+                            <button type="button" class="btn btn-danger">删除</button>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>id</td>
+                        <td>name</td>
+                        <td>createTime</td>
+                        <td>operation</td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

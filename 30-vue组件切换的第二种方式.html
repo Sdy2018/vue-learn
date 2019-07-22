@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title></title>
+  <meta charset=utf-8>
+  <script src="Lib/vue-2.6.10.js"></script>
+  <style type="text/css">
+    .v-enter,
+    .v-leave-to{
+      opacity: 0;
+      transform: translateX(150px);
+    }
+    .v-enter-active,
+    .v-leave-active{
+      transition: all 0.5s ease;
+    }
+  </style>
+</head>
+<body>
+  <div id="demo">
+    <a href="" @click.prevent="componentName='login'">login</a>
+    <a href="" @click.prevent="componentName='register'">register</a>
+    <!-- is 属性为要选择的组件名 -->
+    <transition mode="out-in">
+      <component :is="componentName"></component>
+    </transition>
+
+    <!-- 学习了Vue中自带的标签有
+         transition transitionGroup  template component
+     -->
+  </div>
+  <script>
+    Vue.component("login",{
+      template:"<h3 style='color:red'>login</h3>"
+    });
+    Vue.component("register",{
+      template:"<h3 style='color:red'>register</h3>"
+    })
+    var vm = new Vue({
+      el: "#demo",
+      data:{
+        'msg':"HELLO WORLD",
+        "componentName":"login",
+      }
+    })
+  </script>
+</body>
+</html>

@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title></title>
+  <meta charset=utf-8>
+  <script src="Lib/vue-2.6.10.js"></script>
+  <!-- 导入vue-router包 -->
+  <script src="Lib/vue-router v3.0.7.js"></script>
+  <style>
+    .router-link-active,.my-active{
+      font-size: 20px;
+      color: #80f;
+    }
+    .v-enter,
+    .v-leave-to{
+      opacity: 0;
+      transform: translateX(150px);
+      position: absolute;
+    }
+    .v-enter-active,
+    .v-leave-active{
+      transition: all 0.5s ease;
+      position: absolute;
+    }
+  </style> 
+</head>
+<body>
+  <div id="demo">
+    <!--router-link  to to表示去哪个路由
+      默认渲染为a标签
+      使用tag切换绑定标签
+      无论使用什么标签router-link都给标签添加了一个点击事件
+      在切换组件时,vue-router会给正在使用的组件默认添加一个
+      router-link-active属性。在实例化VueRouter中可以通过
+      linkActiveClass修改默认的类属性
+    -->
+    <router-link to="/login" tag="span">login</router-link>
+    <router-link to="/register" tag="span">register</router-link>
+    <transition mode="out-in">
+      <router-view></router-view>
+    </transition>  
+  </div>
+  <script>
+    /*创建组件*/
+    var loginComponent={
+      template:"<h1>登录组件</h1>"
+    }
+    var registerComponent={
+      template:"<h1>注册组件</h1>"
+    }
+    /*路由映射*/
+    var routes=[
+    {path:"/",redicect:"/login"},
+    {path:"/login",component:loginComponent},
+    {path:"/register",component:registerComponent}
+    ]
+    /*实例化VueRouter对象*/
+    var router=new VueRouter({
+      /*添加路由映射*/
+      routes,
+      linkActiveClass:"my-active"
+    });
+    var vm = new Vue({
+      el: "#demo",
+      data:{
+        'msg':"HELLO WORLD"
+      },
+      // router:router,||
+      // 在router中定义路由实例
+      router,
+    })
+  </script>
+</body>
+</html>

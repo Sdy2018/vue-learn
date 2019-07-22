@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title></title>
+  <meta charset=utf-8>
+  <script src="Lib/vue-2.6.10.js"></script>
+</head>
+<body>
+  <div id="demo">
+    <input type="text"  v-model="firstName" name="">+
+    <input type="text"  v-model="lastName" name="">=
+    <input type="text" v-model="fullName" name="">
+  </div>
+  <script>
+    /*使用wetch监听文本框的变化*/
+    var vm = new Vue({
+      el: "#demo",
+      data:{
+        'msg':"HELLO WORLD",
+        'fullName':"",
+        "firstName":"",
+        "lastName":"",
+      },
+      /*watch在是watch对象中添加要监听的属性,当属性改变时触发方法*/
+      /*一般用来监听比较内部属性*/
+      watch:{
+        'firstName':function(newValue,lastValue){
+          this.fullName=newValue+this.lastName
+        },
+        'lastName':function(newValue,lastValue){
+          this.fullName=this.firstName+newValue
+        },
+      }
+    })
+  </script>
+</body>
+</html>

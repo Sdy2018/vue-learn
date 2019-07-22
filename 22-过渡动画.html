@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title></title>
+  <meta charset=utf-8>
+  <script src="Lib/vue-2.6.10.js"></script>
+  <style>
+    .fade-enter-active, .fade-leave-active {
+
+      transform: translateX(0px);
+      transition: all 2s;
+    }
+    .fade-enter,.fade-leave-to{
+      transform: translateX(200px);
+      opacity: 0;
+    }
+  </style>
+</head>
+<body>
+  <div id="demo">
+    <button @click="show=!show">animation</button>
+    <transition name="fade">
+      <p v-if="show">HELLO WORLD</p>
+    </transition>
+  </div>
+  <script>
+    var vm = new Vue({
+     el: "#demo",
+     data:{
+      'msg':"HELLO WORLD",
+      'show':true
+    }   
+  })
+</script>
+</body>
+</html>

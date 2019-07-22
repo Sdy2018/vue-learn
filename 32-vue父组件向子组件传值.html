@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title></title>
+  <meta charset=utf-8>
+  <script src="Lib/vue-2.6.10.js"></script>
+</head>
+<body>
+  <div id="demo">
+    <hello :parent-msg="msg"></hello>
+  </div>
+  <template id="hello">
+    <div>
+      <h3>{{parentMsg}} WORLD</h3>
+    </div>
+  </template>
+  <script>
+    var vm = new Vue({
+      el: "#demo",
+      data:{
+        'msg':"HELLO"
+      },
+      components:{
+        "hello":{
+          /*子组件使用父组件的data数据,需要在props数组中添加属性,在模板调用时从模板中绑定属性的值
+          demo 
+          props:["demo"]
+          <demp :demo={{msg}}></demo>
+          template:"<h1>{{demo}}</h1>"
+          */
+          // template:"<h1>{{parentMsg}}</h1>",
+          template:"#hello",
+          data(){
+            return {
+              'msg':"say byebye"
+            }
+          },
+          props:["parentMsg"]
+        },
+      }
+    })
+  </script>
+</body>
+</html>

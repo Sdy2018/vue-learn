@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title></title>
+  <meta charset=utf-8>
+  <script src="Lib/vue-2.6.10.js"></script>
+</head>
+<body>
+  <div id="demo">
+    <increment></increment>
+    <increment></increment>
+    <increment></increment>
+  </div>
+  <template id="increment">
+    <div>
+      <span>{{count}}</span>
+      <button @click="increment">increment</button>
+    </div>
+  </template>
+  <script>
+    //其中组件和vue实例不同的是,data为一个方法,返回需要访问的数据.
+    //这样设置的原因是,组件可能有多次调用,如果data写成一个对象,那么所有模板便共享着同一份data数据。当data写成一个方法每次创建模板便会调用data方法返回一个新的实例对象。
+    Vue.component("increment",{
+      template:"#increment",
+      data(){
+        return {
+          count:0,
+        };
+      },
+      methods:{
+        increment(){
+          this.count++;
+        }
+      }
+    })
+    var vm = new Vue({
+     el: "#demo",
+     data:{
+      'msg':"HELLO WORLD"
+    }
+  })
+</script>
+</body>
+</html>

@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title></title>
+  <meta charset=utf-8>
+  <script src="Lib/vue-2.6.10.js"></script>
+  <style type="text/css">
+    .ball{
+      height: 15px;
+      width: 15px;
+      border-radius: 50%;
+      background-color: red;
+    }
+  </style>
+</head>
+<body>
+<!--  v-on:before-enter="beforeEnter"
+      v-on:enter="enter"
+      v-on:after-enter="afterEnter"
+      v-on:enter-cancelled="enterCancelled"
+
+      v-on:before-leave="beforeLeave"
+      v-on:leave="leave"
+      v-on:after-leave="afterLeave"
+      v-on:leave-cancelled="leaveCancelled"
+   -->
+  <div id="demo">
+    <button @click="flag=!flag">move</button>
+    <transition @before-enter="beforeEnter" @enter="enter" @after-enter="afterEnter">
+      <div class="ball" v-show="flag"></div>
+    </transition>
+  </div>
+  <script>
+    var vm = new Vue({
+      el: "#demo",
+      data:{
+        'msg':"HELLO WORLD",
+        'flag':false,
+      },
+      methods:{
+        /*beforEnter表示进入之前*/
+        beforeEnter(el){
+          el.style.transform="translate(0,0)";
+        },
+        /*enter表示进入时完成的动画*/
+        /*当只用 JavaScript 过渡的时候，在 enter 和 leave 中必须使用 done 进行回调。否则，它们将被同步调用，过渡会立即完成。*/
+        enter(el,done){
+          el.offsetWidth;
+          el.style.transform="translate(150px,450px)";
+          el.style.transition="all 1s ease";
+          done();
+        },
+        /*表示进入之后*/
+        afterEnter(el){
+          this.flag=false;
+        }
+      }
+    })
+  </script>
+</body>
+</html>

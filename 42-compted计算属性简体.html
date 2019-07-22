@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title></title>
+  <meta charset=utf-8>
+  <script src="Lib/vue-2.6.10.js"></script>
+</head>
+<body>
+  <div id="demo">
+    <input type="text"  v-model="firstName" name="">+
+    <input type="text"  v-model="lastName" name="">=
+    <input type="text" v-model="fullName" name="">
+  </div>
+  <script>
+    /*使用计算属性来监听文本框的改变*/
+    var vm = new Vue({
+      el: "#demo",
+      data:{
+        'msg':"HELLO WORLD",
+        'firstName':"",
+        "lastName":""
+      },
+      /*计算属性会在属性加载时默认触发一次,
+        只有当计算属性方法中的属性发生改变是计算属性的方法才会被调用。
+        在调用方法后,方法会把值赋值给vm中创建的属性对象.
+      */
+      computed:{
+        "fullName":function(){
+          return this.firstName+this.lastName;
+        }
+      }
+    })
+  </script>
+</body>
+</html>

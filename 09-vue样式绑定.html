@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title></title>
+    <meta charset=utf-8>
+    <script src="Lib/vue-2.6.10.js"></script>
+    <style type="text/css">
+        .red{
+            color: red;
+        }
+        .thin{
+            font-weight: 200;
+        }
+        .italic{
+            font-style: italic;
+        }
+    </style>
+</head>
+<body>
+ <!--    <div id="demo">
+        <h1 :class="'red thin'">Hello World</h1>
+    </div> -->
+
+    <!--  <div id="demo">
+        <h1 :class="['red','thin',{italic:true}]">Hello World</h1>
+    </div> -->
+
+    <!--   <div id="demo">
+        <h1 :class="{thin:true,red:true,italic:false}">Hello World</h1>
+    </div> -->
+    <div id="demo">
+         <h1 :class="obj">Hello World</h1>
+    </div>
+    <script>
+        var vm = new Vue({
+            el: "#demo",
+            data:{
+                'msg':"HELLO WORLD",
+                'obj':{thin:true,red:true,italic:true}
+            }
+        })
+    </script>
+</body>
+</html>

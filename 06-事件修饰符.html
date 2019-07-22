@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset=utf-8>
+    <meta name=viewport content="width=device-width, initial-scale=1">
+    <title>v-bind</title>
+    <script type="text/javascript" src="Lib/vue-2.6.10.js"></script>
+    <style type="text/css">
+        .lageBox{
+            height: 200px;
+            background-color:red; 
+        }
+    </style>
+</head>
+<body>
+
+    <!-- 
+             修饰符可以串联 
+            .stop 阻止冒泡行为
+            .prevent 阻止事件默认行为
+            .capture 启用捕获事件
+            添加事件监听器时使用事件捕获模式 
+            即元素自身触发的事件先在此处理，然后才交由内部元素进行处理 
+            .self 只处理自身事件,阻止自身事件的冒泡
+            只当在 event.target 是当前元素自身时触发处理函数 
+            即事件不是从内部元素触发的
+            .once 事件只处罚一次
+            .passive
+-->
+            <!-- 滚动事件的默认行为 (即滚动行为) 将会立即触发 -->
+<!-- 而不会等待 `onScroll` 完成  -->
+<!-- 这其中包含 `event.preventDefault()` 的情况 -->
+<!-- <div v-on:scroll.passive="onScroll">...</div> -->
+<!-- 阻止冒泡
+    <div id="box">
+    <div class="lageBox" @click="divHandler">
+        <button class="button" @click.stop="buttonHandler">button</button>
+    </div>
+</div> -->
+
+<!-- 阻止事件默认行为
+<div id="box">
+    <a href="www.baidu.com" @click.prevent="a">百度</a>
+</div>
+ -->
+
+<!--  捕获行为
+    <div id="box">
+    <div class="lageBox" @click.capture="divHandler">
+        <button class="button" @click="buttonHandler">button</button>
+    </div>
+</div> -->
+
+<!-- 只触发自身事件
+    <div id="box">
+    <div class="lageBox" @click.self="divHandler">
+        <button class="button" @click="buttonHandler">button</button>
+    </div>
+</div -->
+
+
+<!-- 事件只触发一次,若与其他修饰事件一起使用其他修饰事件也只触发一次
+<div id="box">
+    <a href="http://www.baidu.com" @click.prevent.once="a">百度</a>
+</div> -->
+
+
+<script >
+    var vm = new Vue({
+        
+        el: "#box",
+        methods:{
+            divHandler(){
+                console.log("div被点击了");
+            },
+            buttonHandler(){
+                console.log("button被点击了");
+            },
+            a(){
+                console.log("a标签被点击了")
+            }
+        }
+        
+    })
+</script>
+</body>
+</html>

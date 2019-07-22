@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title></title>
+    <meta charset=utf-8>
+    <script src="Lib/vue-2.6.10.js"></script>
+</head>
+<body>
+    
+    <!-- 当不添加key属性时,for循环中的数据不会进行相对应的绑定,不会确保数据的一致性
+        key的值确保唯一,不能使用index作为key值-->
+    <div id="demo">
+        <label>
+            <input type="text" v-model="id">
+            <input type="text" v-model="name" name="">
+            <input type="button" value="添加" @click="add">
+        </label>
+        <p v-for="(item,index) in userList" :key="item.id">
+            <input type="checkbox" >
+            {{item.id}}--------{{item.name}}-----{{index}}
+        </p>
+    </div>
+    <script>
+        var vm = new Vue({
+            el: "#demo",
+            data:{
+                'id':"",
+                'name':"",
+                'msg':"HELLO WORLD",
+                'userList':[
+                {'id':1,'name':'zhangsan1'},
+                {'id':2,'name':'zhangsan2'},
+                {'id':3,'name':'zhangsan3'},
+                {'id':4,'name':'zhangsan4'},
+                {'id':5,'name':'zhangsan5'},
+                {'id':6,'name':'zhangsan5'},
+                ]
+            },
+            methods:{
+                add(){
+                    this.userList.unshift({'id':this.id,'name':this.name})
+                }
+            }
+        })
+    </script>
+</body>
+</html>

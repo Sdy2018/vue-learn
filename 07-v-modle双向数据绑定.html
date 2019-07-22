@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>07-vue-modle</title>
+    <meta charset=utf-8>
+    <script src="Lib/vue-2.6.10.js"></script>
+</head>
+<body>
+
+    <!-- v-bing 只是单向绑定数据  -->
+    <!-- v-modle表示双向绑定数据
+         在网页上绑定的表单元素变化时
+         渲染到网页内存中的vue对象的值也会发送改变 
+         同时v-modle只能作用在表单元素上
+    -->
+    <div id="demo">
+        <span>{{msg}}</span><br>
+        <input type="text" v-model="msg">
+    </div>
+    <script>
+        var vm = new Vue({
+            el: "#demo",
+            data:{
+                'msg':"HELLO WORLD"
+            }
+        })
+    </script>
+</body>
+</html>

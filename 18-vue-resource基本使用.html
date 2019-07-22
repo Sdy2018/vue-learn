@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title></title>
+    <meta charset=utf-8>
+    <script src="Lib/vue-2.6.10.js"></script>
+    <script src="Lib/vue-resource@1.5.1.js"></script>
+</head>
+<body>
+    <div id="demo">
+        <button @click="getInfo">getRequest</button>
+        <button @click="postInfo">postRequest</button>
+        <button @click="jsonpInfo">jsonpInfoRequest</button>
+    </div>
+    <script>
+        var vm = new Vue({
+            el: "#demo",
+            data:{
+                'msg':"HELLO WORLD"
+            },
+            methods:{
+                /*vue-resource使用方法,vue-resource在vue里加了个$http对象格式为
+                vue.$http.get('url').then(successCallback,errorCallback);
+                (get请求,其中successCallback必须要有)
+                */
+
+                /*
+              //get(url, [config])
+                head(url, [config])
+                delete(url, [config])
+                jsonp(url, [config])
+                post(url, [body], [config])
+                put(url, [body], [config])
+                patch(url, [body], [config])
+
+                // in a Vue instance
+                this.$http.get('/someUrl', [config]).then(successCallback, errorCallback);
+                this.$http.post('/someUrl', [body], [config]).then(successCallback, errorCallback);
+                */
+                getInfo(){
+                    this.$http.get("http://www.liulongbin.top:3005/api/getnewslist").then(response=>{
+                        console.log(response.body);
+                    });
+                },
+                postInfo(){
+                    /*没有post请求的url所*/
+                    this.$http.post("url",{},{emulateJSON:true}).then(response=>{
+                        console.log(response.body);
+                        console.log("123");
+                    })
+                },
+                /*没有对应jsonp的请求url*/
+                /*jsonp解决了跨域请求,因为游览器为了安全不允许前端访问域名不同,端口号不同之类的网站上的数据。*/
+                jsonpInfo(){
+                    this.$http.jsonp("url").then(response=>{
+                        console.log(response.body);
+                    })
+                }
+
+            }
+
+        })
+    </script>
+</body>
+</html>

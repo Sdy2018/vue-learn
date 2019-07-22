@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title></title>
+    <meta charset=utf-8>
+    <script src="Lib/vue-2.6.10.js"></script>
+</head>
+<body>
+    <div id="demo">
+        <!-- 循环数组 
+            有两种形式
+            item in items ||
+            (item,index) in items
+            <p v-for="(item,index) in list">当前数组的值为{{item}}</p>
+        -->
+        <!-- 循环对象数组 
+            <p v-for="(student,index) in students">当前id:{{student.id}}----当前name:{{student.name}}---当前gender:{{student.gender}}----当前的index:{{index}}</p>
+        -->
+        <!-- 循环对象 
+            参数类型有 value in obj
+            (value,key,index) in obj
+            (value,key) in obj
+        -->
+        <!-- 在2.2+版本之后必须使用key属性 -->
+        <p v-for="(value,key,index) in obj">value:{{value}}-----------key:{{key}}---------index:{{index}}</p>
+        
+    </div>
+    <script>
+        var vm = new Vue({
+            el: "#demo",
+            data:{
+                'msg':"HELLO WORLD",
+                'list':[1,2,3,4,5,6],
+                'students':[
+                {'id':1,'name':'张三','gender':'male'},
+                {'id':2,'name':'李四','gender':'male'},
+                {'id':3,'name':'王二','gender':'male'},
+                {'id':4,'name':'赵五','gender':'male'},
+                ],
+                'obj':{
+                    'name':'adeng',
+                    'age':22,
+                    'gender':'male',
+                }
+            }
+        })
+    </script>
+</body>
+</html>

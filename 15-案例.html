@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title></title>
+  <meta charset=utf-8>
+  <script src="Lib/vue-2.6.10.js"></script>
+  <link rel="stylesheet" type="text/css" href="Lib/bootstrap.css">
+</head>
+<body>
+  <div id="demo">
+    <div class="panel panel-default  panel-primary">
+      <div class="panel-heading">
+        <h3 class="panel-title">标题</h3>
+      </div>
+      <div class="panel-body">
+        <form class="form-inline">
+          <div class="form-group">
+            <label for="exampleInputName2">Id</label>
+            <input v-model="id" type="text" class="form-control"  placeholder="Id">
+          </div>
+          <div class="form-group">
+            <label for="exampleInputEmail2">Name</label>
+            <input v-model="name" @keyup.f2="add" type="text" class="form-control" placeholder="Name">
+            <button type="button" @click="add" class="btn btn-default">add</button>
+          </div>
+          <div class="form-group">
+            <label for="exampleInputEmail2">search</label>
+            <input  v-model="keyword" type="text" class="form-control" placeholder="Search" v-focus="'#f40'">
+          </div>
+        </form>
+        <div class="panel panel-default">
+          <!-- Default panel contents -->
+          <table class="table table-responsive  table-bordered table-hover ">
+            <tr>
+              <th>id</th>
+              <th>name</th>
+              <th>createTime</th>
+              <th>operation</th>
+            </tr>
+            <tr  v-for="(user,index) in search()" :key="user.id"></div>
+              <td v-text="user.id"></td>
+              <td v-text="user.name"></td>
+              <td >
+                {{user.createTime | dateFormat}}
+              </td>
+              <td> 
+                <button  @click="remove(index)" type="button" class="btn btn-danger">删除</button>
+              </td>
+            </tr>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+  <script>
+    /*
+    自定义指令
+    */
+    Vue.directive("focus",{
+      bind(el,binding){
+        /*自定义指令一定要以v-开头，格式如下 v-XX(自定义指令名)*/
+        /*bind表示在指令与元素绑定之前,此时元素还没有加载到dom树中*/
+        /*el表示绑定元素的document对象*/
+        /*bind方法只执行一次*/
+        /*一般用bind来绑定样式和属性*/
+        /*方法内的第一个参数必须为el表示jsdom元素的,第二个参数为binding表示绑定属性*/
+        // binding：一个对象，包含以下属性：
+        // name：指令名，不包括 v- 前缀。
+        // value：指令的绑定值，例如：v-my-directive="1 + 1" 中，绑定值为 2。
+        // oldValue：指令绑定的前一个值，仅在 update 和 componentUpdated 钩子中可用。无论值是否改变都可用。
+        // expression：字符串形式的指令表达式。例如 v-my-directive="1 + 1" 中，表达式为 "1 + 1"。
+        // arg：传给指令的参数，可选。例如 v-my-directive:foo 中，参数为 "foo"。
+        // modifiers：一个包含修饰符的对象。例如：v-my-directive.foo.bar 中，修饰符对象为 { foo: true, bar: true }。
+
+      },
+      inserted(el){
+        /*表示元素已经插入到dom树种,inserted方法也只执行一次*/
+        /*一般用来执行js相关的操作*/
+        el.focus();
+      },
+      updated(el){
+        /*update表示元素的更新,可能执行多次*/
+      }
+    });
+    // 如果想注册局部指令，组件中也接受一个 directives 的选项：
+
+    // directives: {
+  //        focus: {
+  //    // 指令的定义
+  //    inserted: function (el) {
+  //         el.focus()
+  //        }
+  //            }
+    // }
+
+    Vue.config.keyCodes.f2=113;
+
+    Vue.filter("dateFormat",function(dateStr) {
+      var date=new Date(dateStr);
+      var year=date.getFullYear().toString().padStart(2,"0");
+      var month=(date.getMonth()+1).toString().padStart(2,"0");
+      var day=date.getDate().toString().padStart(2,"0");
+      var hours=date.getHours.toString().padStart(2,"0")
+      var minutes=date.getMinutes().toString().padStart(2,"0");
+      var seconds=date.getSeconds().toString().padStart(2,"0");
+      return year + "-" + month + "-" + day + " " + hours + ":" + minutes + ":" + seconds;
+      // return '${year}-${month}-${day} ${hours}:${minutes}:${seconds}';
+    });
+    var vm = new Vue({
+      el: "#demo",
+      data:{
+        'msg':"HELLO WORLD",
+        'id':'',
+        'name':'',
+        'keyword':'',
+        'userList':[
+        {'id':1,'name':'张三','createTime': new Date()},
+        {'id':2,'name':'李四','createTime': new Date()}
+        ]},
+        methods:{
+          add(){
+            var a={'id':this.id,'name':this.name,'createTime':new Date()};
+            this.userList.push(a);
+          },
+          remove(index){
+            this.userList.splice(index,1)
+          },
+          search(){
+          /*      第一种
+          var newList=[];
+          this.userList.forEach(item=>{
+            if(item.name.indexOf(this.keyword)!=-1){
+              newList.push(item);
+            }
+          })
+          return newList;*/
+          // 第二种
+          return  this.userList.filter( item=>{
+            if(item.name.includes(this.keyword)){
+              console.log(this.keyword)
+              return item;
+            }
+          })
+
+        }},
+        filters:{
+          dateFormat(dateStr){
+          //padStart(int length,char paddingCharacter)用来填充字符到指定位数
+          var date=new Date(dateStr);
+          var year=date.getFullYear().toString().padStart(2,'0');
+          var month=(date.getMonth()+1).toString().padStart(2,'0');
+          var day=date.getDate().toString().padStart(2,'0');
+          var hours=date.getHours().toString().padStart(2,'0');
+          var minutes=date.getMinutes().toString().padStart(2,'0');
+          var seconds=date.getSeconds().toString().padStart(2,'0');
+          return year + "-" + month + "-" + day + " " + hours + ":" + minutes + ":" + seconds + "~~~~";
+        }
+      },
+      directives:{
+        focus:{
+          bind(el,binding){
+            el.style.color=binding.value;
+          },
+          inserted(el){
+            el.focus();
+          }
+        }
+      }
+    })
+  </script>
+</body>
+</html>

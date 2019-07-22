@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title></title>
+  <meta charset=utf-8>
+  <script src="Lib/vue-2.6.10.js"></script>
+</head>
+<body>
+  <div id="demo">
+    <!-- 将父组件的方法绑定给子组件 -->
+    <hello @child-function="show"></hello>
+  </div>
+
+  <template id="hello">
+    <div>
+      <input type="button" value="show" @click="show()" name="">
+    </div>
+  </template>
+  <script>
+    var hello={
+      template:"#hello",
+      data(){
+        return {
+          'msg':{
+            'name':"zhangsan",
+            'gender':"male",
+            'age':'22'
+          }
+        }
+      },
+      methods:{
+        show(){
+          /*从子组件的方法中触发父类传递的方法,语法为
+          component.$emit("方法名",params.....)
+          */
+          this.$emit('child-function',this.msg);
+          console.log(this.msg);
+        }
+      },
+    }
+    var vm = new Vue({
+      el: "#demo",
+      data:{
+        'msg':"HELLO PARENT",
+        'user':{},
+      },
+      methods:{
+        /*若父组件要获取子组件中的值,则通过子调用父传入数据参数的方法*/
+        show(data){
+          console.log("hello world");
+          this.user=data;
+          console.log(this.data);
+        }
+      },
+      components:{
+        hello,
+      }
+    })
+  </script>
+</body>
+</html>

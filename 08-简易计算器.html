@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title></title>
+    <meta charset=utf-8>
+    <script src="Lib/vue-2.6.10.js"></script>
+</head>
+<body>
+    <div id="demo">
+        <input type="text" v-model="input1" >
+        <select v-model="select">
+            <option>+</option>
+            <option>-</option>
+            <option>*</option>
+            <option>/</option>
+        </select>
+        <input type="text" v-model="input2" >
+        <input type="button" value="=" @click="caculate" >
+        <input type="text" v-model="result"  >
+    </div>
+    <script>
+        var vm = new Vue({
+            el: "#demo",
+            data:{
+                'msg':"HELLO WORLD",
+                "input1":0,
+                "select":"+",
+                "input2":0,
+                "result":0
+            },
+            methods:{
+                caculate(){
+                    // switch (this.select) {
+                    //  case "+":
+     //                     // statements_1
+     //                     this.result=parseInt(this.input1)+parseInt(this.input2);
+     //                     break;
+     //                 case "-":
+     //                     this.result=parseInt(this.input1)-parseInt(this.input2);;
+     //                     break;
+     //                 case "*":
+     //                     this.result=parseInt(this.input1)*parseInt(this.input2);
+     //                     break;
+     //                 case "/":
+     //                     this.result=parseInt(this.input1)/parseInt(this.input2);
+     //                     break;
+     //                 }
+     //             }
+                    this.result=eval(this.input1+this.select+this.input2);
+                }
+            }
+        })
+        </script>
+    </body>
+</html>

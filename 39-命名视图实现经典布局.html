@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title></title>
+  <meta charset=utf-8>
+  <script src="Lib/vue-2.6.10.js"></script>
+  <script src="Lib/vue-router v3.0.7.js"></script>
+  <style type="text/css">
+    html,body{
+      margin:0;
+      padding: 0;
+    }
+    h1{
+      margin:0;
+      padding: 0;
+    }
+    .head{
+      background-color: #8923FF;
+      height: 100px;
+    }
+    .container{
+      display: flex;
+      height: 800px;
+    }
+    .left{
+      background-color: #F0034F;
+      flex: 1;
+    }
+    .right{
+      background-color:#F93A37;
+      flex:5;
+    }
+  </style>
+</head>
+<body>
+  <div id="demo">
+    <router-view name="head" class="head"></router-view>
+    <div class="container">
+      <router-view name="left" class="left"></router-view>
+      <router-view name="right" class="right"></router-view>
+    </div>
+  </div>
+  <template id="head">
+    <h1>由我来组成头部</h1>
+  </template>
+  <template id="left">
+    <h1>由我来组成四肢</h1>
+  </template>
+  <template id="right">
+    <h1>由我来组成躯干</h1>
+  </template>
+
+  <script>
+    var head={
+      template:"#head"
+    }
+    var left={
+      template:"#left"
+    }
+    var right={
+      template:"#right"
+    }
+    var router=new VueRouter({
+      routes:[
+      {path:"",components:{
+        'head':head,
+        'left':left,
+        'right':right
+      }}
+      ]
+    })
+    var vm = new Vue({
+      el: "#demo",
+      data:{
+        'msg':"HELLO WORLD"
+      },
+      router,
+    })
+  </script>
+</body>
+</html>

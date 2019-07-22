@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title></title>
+  <meta charset=utf-8>
+  <script src="Lib/vue-2.6.10.js"></script>
+  <link rel=stylesheet href="Lib/bootstrap.css">
+  <style type="text/css">
+    li{
+      border: 1px solid #f40;
+      margin: 10px;
+      padding: 5px;
+      width: 100%
+    }
+    li:hover{
+      background-color:hotpink;
+      transition: 0.5s ease;
+    }
+    .v-enter,
+    .v-leave-to{
+      transform: translateY(80px);
+      opacity: 0
+    }
+
+    .v-enter-active,
+    .v-leave-active{
+      transition: all 0.4s ease;
+    }
+    /*设置离开动画时通过设置v-leave-active和v-move*/
+    .v-leave-active{
+      position: absolute;
+    }
+    .v-move{
+      transition: all 0.4s ease;
+    }
+  </style>
+</head>
+<body>
+  <div id="demo">
+    <div style="margin-left: 20px">
+      <label>
+        name:
+        <input type="text" v-model="name" >
+      </label>
+      <label>
+        <input type="button" value="add" @click="add()">
+      </label>
+    </div>
+    <!-- 在数组动画中需要使用transition-group标签
+      appear表示在页面载入时展示动画
+      tag设置transition-group为相应的标签,默认为span
+    -->
+    <transition-group  appear tag="ul"  >
+      <li :key="user" v-for="(user,index) in users" @click="remove(index)">{{user}}</li>
+    </transition-group>
+  </div>
+  <script>
+    var vm = new Vue({
+      el: "#demo",
+      data:{
+        'msg':"HELLO WORLD",
+        'users':["张三","李四","王二","麻子"],
+        "name":""
+      },
+      methods:{
+        add(){
+          this.users.push(this.name);
+          this.name="";
+        },
+        remove(index){
+          this.users.splice(index, 1)
+        }
+      }
+    })
+  </script>
+</body>
+</html>

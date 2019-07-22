@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title></title>
+  <meta charset=utf-8>
+  <script src="Lib/vue-2.6.10.js"></script>
+  <script src="Lib/vue-resource@1.5.1.js"></script>
+  <link rel="stylesheet" type="text/css" href="Lib/bootstrap.css">
+</head>
+<body>
+  <div id="demo">
+    <div class="panel panel-primary">
+      <div class="panel-heading">
+        <h3 class="panel-title">标题</h3>
+      </div>
+      <div class="panel-body">
+        <form action class="form-inline form-group">
+          <input v-model="keyword" type="text" class="form-control" >
+          <button @click="insert()" class="btn btn-primary">add
+          </button>
+        </form>
+        <table class="table table-responsive  table-bordered table-hover">
+          <tr>
+            <th>id</th>
+            <th>name</th>
+            <th>gender</th>
+            <th>createTimer</th>
+            <th>operation</th>
+          </tr>
+          <tr v-for="user in users" :key="user.id" >
+            <td>{{user.id}}</td>
+            <td>{{user.name}}</td>
+            <td>{{user.gender}}</td>
+            <td>{{user.createTime | dateFormat()}}</td>
+            <td><button @click="remove(user.id)" class="btn btn-danger">delete</button></td>
+          </tr>
+        </table>
+      </div>
+    </div>
+  </div>
+  <script>
+    Vue.http.options.root = '/root';
+    Vue.http.options.emulateJSON=true;
+    var vm = new Vue({
+      el: "#demo",
+      data:{
+        'msg':"HELLO WORLD",
+        'users':[
+        ],
+        'keyword':'',
+      },
+      http:{
+        root:"http://localhost:3000/"
+      },
+      methods:{
+        getUsers(){
+          this.$http.get("users",{emulateJSON:true}).then(response=>{
+            if(response.status===200){
+              console.log(response.body)
+              this.users=response.body;
+            }else{
+              console.log("失败");
+            }
+          },response=>{
+            console.log("124");
+          });
+        },
+        insert(){
+          this.$http.post("user",{
+            "name":this.keyword,
+            "age":'23',
+            "gender":'male',
+            "createTime":this.$options.filters['dateFormat'] (new Date())
+          }
+          ).then(doneCallbacks=>{
+            this.getUsers();
+            console.log("success");
+          }, failCallbacks=>{
+            console.log("fail");
+          })
+        },
+        remove(id){
+          this.$http.delete("user/"+id).then(doneCallbacks=>{
+            if(doneCallbacks.status===200){
+              this.getUsers();
+            }
+          }, failCallbacks=>{
+            console.log("fail")
+          })
+        }
+      },
+      created(){
+        this.getUsers();
+      },
+      filters:{
+        dateFormat(date){
+          //padStart(int length,char paddingCharacter)用来填充字符到指定位数
+          if(typeof(date)==="number"){
+            date=new Date(date)
+          }
+          var year=date.getFullYear().toString().padStart(2,'0');
+          var month=(date.getMonth()+1).toString().padStart(2,'0');
+          var day=date.getDate().toString().padStart(2,'0');
+          var hours=date.getHours().toString().padStart(2,'0');
+          var minutes=date.getMinutes().toString().padStart(2,'0');
+          var seconds=date.getSeconds().toString().padStart(2,'0');
+          return year + "-" + month + "-" + day + " " + hours + ":" + minutes + ":" + seconds ;
+        }
+      },
+    })
+  </script>
+</body>
+</html>

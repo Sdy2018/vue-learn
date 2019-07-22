@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title></title>
+  <meta charset=utf-8>
+  <script src="Lib/vue-2.6.10.js"></script>
+</head>
+<body>
+  <div id="demo">
+<!--    <hello></hello> -->
+  </div>
+  <script>
+    var hello={
+      template:"<h1>Helle  World</h1>"
+    }
+    var vm = new Vue({
+      el: "#demo",
+      data:{
+        'msg':"HELLO WORLD"
+      },
+      /*使用render会使用模板替换掉vm的el区域*/
+      render(createElement){
+        return createElement(hello);
+      }
+    })
+  </script>
+</body>
+</html>

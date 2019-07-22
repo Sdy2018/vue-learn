@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title></title>
+    <meta charset=utf-8>
+    <script src="Lib/vue-2.6.10.js"></script>
+</head>
+<body>
+
+    <!-- 
+        v-if表示是否启用当前这个元素。
+        v-if切换时消耗性能较高
+        v-show表示是否显示当前这个元素display
+        v-show初始化时消耗性能交高,因为无论如何它都会创建当前这个元素 
+
+    -->
+    <div id="demo">
+        <button @click="toggle">toggle</button>
+        <h1 v-if="!flag">HELLOWORLD</h1>
+        <h1 v-show="!flag">HELLOWORLD</h1>
+    </div>
+    <script>
+        var vm = new Vue({
+            el: "#demo",
+            data:{
+                'msg':"HELLO WORLD",
+                'flag':true,
+            },
+            methods:{
+                toggle(){
+                    this.flag=!this.flag;
+                    console.log(this.flag);
+                }
+            }
+        })
+    </script>
+</body>
+</html>
