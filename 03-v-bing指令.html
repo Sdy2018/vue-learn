@@ -1,25 +1,25 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>v-bind</title>
-    <meta charset=utf-8>
-    <script type="text/javascript" src="Lib/vue-2.6.10.js"> </script>
+	<title>v-bind</title>
+	<meta charset=utf-8>
+	<script type="text/javascript" src="Lib/vue-2.6.10.js"> </script>
 </head>
 <body>
-    <!-- v-bind:可以缩写为: -->
-    <div id="box">
-        <input type="button" value="按钮" name="button" 
-        :title="title+'123'+msg" :custom="title">
-    </div>
-    <script >
+	<!-- v-bind:可以缩写为: -->
+	<div id="box">
+		<input type="button" value="按钮" name="button" 
+		:title="title+'123'+msg" :custom="title">
+	</div>
+	<script >
 
-        var e = new Vue({
-          el: "#box",
-          data:{
-            msg:"hello world",
-            title:"MyTitle"
-          }
-        })
-    </script>
+		var e = new Vue({
+		  el: "#box",
+		  data:{
+			msg:"hello world",
+			title:"MyTitle"
+		  }
+		})
+	</script>
 </body>
 </html>
